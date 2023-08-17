@@ -1,38 +1,29 @@
-// import React, { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 // import api_clint from "../services/api_clint";
 // import { CanceledError } from "axios";
 import useData from "./useData";
 
-export interface Platform {
+export interface Genre {
   id: number;
   name: string;
-  slug: string;
-}
-export interface Game {
-  id: number;
-  name: string;
-  background_image: string;
-  parent_platforms: { platform: Platform }[];
-  metacritic: number;
 }
 
-// interface FatchGameResponse {
+// interface FatchGenreResponse {
 //   count: number;
-//   results: Game[];
+//   results: Genre[];
 // }
-
-const useGames = () => useData<Game>("/games");
+const useGenres = () => useData<Genre>("/genres");
 // {
-//   const [games, setGames] = useState<Game[]>([]);
+//   const [genres, setGenres] = useState<Genre[]>([]);
 //   const [error, setError] = useState("");
 //   const [isLoading, setLoading] = useState(false);
 //   useEffect(() => {
 //     const controller = new AbortController();
 //     setLoading(true);
 //     api_clint
-//       .get<FatchGameResponse>("/games", { signal: controller.signal })
+//       .get<FatchGenreResponse>("/genres", { signal: controller.signal })
 //       .then((res) => {
-//         setGames(res.data.results);
+//         setGenres(res.data.results);
 //         // console.log(res.data.results);
 //       })
 //       .catch((err) => {
@@ -45,7 +36,7 @@ const useGames = () => useData<Game>("/games");
 //     return () => controller.abort();
 //   }, []);
 
-//   return { games, error, isLoading };
+//   return { genres, error, isLoading };
 // };
 
-export default useGames;
+export default useGenres;
