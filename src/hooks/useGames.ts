@@ -2,6 +2,7 @@
 // import api_clint from "../services/api_clint";
 // import { CanceledError } from "axios";
 import useData from "./useData";
+import { Genre } from "./useGenres";
 
 export interface Platform {
   id: number;
@@ -21,7 +22,15 @@ export interface Game {
 //   results: Game[];
 // }
 
-const useGames = () => useData<Game>("/games");
+const useGames = (
+  selectedGenre: Genre | null,
+  selectedPlatform: Platform | null
+) =>
+  useData<Game>(
+    "/games",
+    { params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id } },
+    [selectedGenre?.id, selectedPlatform?.id]
+  );
 // {
 //   const [games, setGames] = useState<Game[]>([]);
 //   const [error, setError] = useState("");
