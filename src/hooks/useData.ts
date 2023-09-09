@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import api_clint from "../services/api_clint";
 import { AxiosRequestConfig, CanceledError } from "axios";
 
-interface FatchResponse<T> {
+export interface FatchResponse<T> {
   count: number;
   results: T[];
 }
