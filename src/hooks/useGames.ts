@@ -1,15 +1,13 @@
 // import React, { useEffect, useState } from "react";
 // import api_clint from "../services/api_clint";
 // import { CanceledError } from "axios";
+import { useQuery } from "@tanstack/react-query";
 import { GameQuery } from "../App";
-import useData from "./useData";
-import { Genre } from "./useGenres";
 
-export interface Platform {
-  id: number;
-  name: string;
-  slug: string;
-}
+import { Genre } from "./useGenres";
+import apiClient, { FatchResponse } from "../services/api_clint";
+import { Platform } from "./usePlatforms";
+
 export interface Game {
   id: number;
   name: string;
@@ -25,18 +23,21 @@ export interface Game {
 // }
 
 const useGames = (gameQuery: GameQuery) =>
-  useData<Game>(
-    "/games",
-    {
-      params: {
-        genres: gameQuery.genre?.id,
-        platforms: gameQuery.platform?.id,
-        ordering: gameQuery.sortOrder,
-        search: gameQuery.searchText,
-      },
-    },
-    [gameQuery]
-  );
+  useQuery<FatchResponse<Game>, Error>({
+    queryKey: ["games", gameQuery],
+    queryFn: () =>
+      apiClient
+        .get<FatchResponse<Game>>("/games", {
+          params: {
+            genres: gameQuery.genre?.id,
+            parent_platforms: gameQuery.platform?.id,
+            ordering: gameQuery.sortOrder,
+            search: gameQuery.searchText,
+          },
+        })
+        .then((res) => res.data),
+  });
+
 // {
 //   const [games, setGames] = useState<Game[]>([]);
 //   const [error, setError] = useState("");

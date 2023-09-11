@@ -2,8 +2,7 @@
 // import api_clint from "../services/api_clint";
 // import { CanceledError } from "axios";
 import { useQuery } from "@tanstack/react-query";
-import useData, { FatchResponse } from "./useData";
-import apiClient from "../services/api_clint";
+import apiClient, { FatchResponse } from "../services/api_clint";
 export interface Genre {
   id: number;
   name: string;

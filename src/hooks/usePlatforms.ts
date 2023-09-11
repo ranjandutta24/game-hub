@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import useData, { FatchResponse } from "./useData";
-import apiClient from "../services/api_clint";
+import apiClient, { FatchResponse } from "../services/api_clint";
 
-interface Platform {
+export interface Platform {
   id: number;
   name: string;
   slug: string;
