@@ -2,7 +2,9 @@
 // import api_clint from "../services/api_clint";
 // import { CanceledError } from "axios";
 import { useQuery } from "@tanstack/react-query";
-import apiClient, { FatchResponse } from "../services/api_clint";
+import APIClient, { FatchResponse } from "../services/api_clint";
+
+const apiClient = new APIClient<Genre>("/genres");
 export interface Genre {
   id: number;
   name: string;
@@ -16,8 +18,7 @@ export interface Genre {
 const useGenres = () =>
   useQuery({
     queryKey: ["genres"],
-    queryFn: () =>
-      apiClient.get<FatchResponse<Genre>>("/genres").then((res) => res.data),
+    queryFn: apiClient.getAll,
     staleTime: 24 * 60 * 60 * 1000,
   });
 // {
